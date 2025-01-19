@@ -8,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './componente-antonio.component.css'
 })
 export class ComponenteAntonioComponent {
+  isVisible: boolean = true;
+  toggleParagraph(): void {
+    this.isVisible = !this.isVisible;
+  }
 
 }

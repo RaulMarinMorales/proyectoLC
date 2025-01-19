@@ -1,1 +1,14 @@
-<p>Hola soy Toño</p>
+<div style="text-align: center; margin-top: 20px;">
+    <!-- Botón para mostrar/ocultar el párrafo -->
+    <button (click)="toggleParagraph()"[ngClass]="isVisible ? 'visible' : 'hidden'">
+        {{ isVisible ? 'Ocultar' : 'Mostrar' }}
+    </button>
+
+    <!-- Párrafo controlado por *ngIf -->
+    <p *ngIf="isVisible">
+
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel dolorem, dolor eveniet, deleniti voluptates
+        impedit quia soluta maxime natus totam accusantium necessitatibus modi possimus magni omnis facere alias aliquid
+        nostrum?
+    </p>
+</div>

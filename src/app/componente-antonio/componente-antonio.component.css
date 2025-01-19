@@ -1,0 +1,9 @@
+.visible {
+    background-color: green;
+    color: white;
+  }
+  
+  .hidden {
+    background-color: red;
+    color: white;
+  }
