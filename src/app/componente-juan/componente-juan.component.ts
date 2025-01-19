@@ -9,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class ComponenteJuanComponent {
 
+  animales = ["Perro", "Gato", "Pájaro", "Tiburón", "Cocodrilo", "Caballo"];
+
+  divMostrado = false;
+
+  mostrarDiv() {
+    this.divMostrado = true;
+  }
 }

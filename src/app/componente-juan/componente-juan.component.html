@@ -1,1 +1,8 @@
-<p>Hola soy Juan</p>
+<button class="btn btn-primary" (click)="mostrarDiv()">Mostrar Animales</button>
+
+<div *ngIf="divMostrado">
+<h4>Lista de animales:</h4>
+<ul>
+    <li *ngFor="let animal of animales"><strong>{{ animal }}</strong></li>
+</ul>
+</div>
