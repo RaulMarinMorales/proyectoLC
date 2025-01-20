@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 })
 export class ComponenteAntonioComponent {
   isVisible: boolean = true;
-  toggleParagraph(): void {
+  mostrarOcultar(): void {
     this.isVisible = !this.isVisible;
   }
 
