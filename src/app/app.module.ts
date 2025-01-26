@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { ComponenteJuanComponent } from './componente-juan/componente-juan.component';
 import { ComponenteRaulComponent } from './componente-raul/componente-raul.component';
 import { ComponenteAntonioComponent } from './componente-antonio/componente-antonio.component';
+import { FooterComponenteComponent } from './footer-componente/footer-componente.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ComponenteJuanComponent,
     ComponenteRaulComponent,
-    ComponenteAntonioComponent
+    ComponenteAntonioComponent,
+    FooterComponenteComponent
   ],
   imports: [
     BrowserModule,
