@@ -7,6 +7,7 @@ import { ComponenteJuanComponent } from './componente-juan/componente-juan.compo
 import { ComponenteRaulComponent } from './componente-raul/componente-raul.component';
 import { ComponenteAntonioComponent } from './componente-antonio/componente-antonio.component';
 import { FooterComponenteComponent } from './footer-componente/footer-componente.component';
+import { FormularioBaloncestoComponent } from './formulario-baloncesto/formulario-baloncesto.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { FooterComponenteComponent } from './footer-componente/footer-componente
     ComponenteJuanComponent,
     ComponenteRaulComponent,
     ComponenteAntonioComponent,
-    FooterComponenteComponent
+    FooterComponenteComponent,
+    FormularioBaloncestoComponent
   ],
   imports: [
     BrowserModule,
