@@ -1,24 +1,71 @@
-<h2>Formulario Natacion</h2>
-<form action="" id="formNatacion">
-    <div>
-        <div class="container mt-4">
-            <div>
-                <label for="inputEquipoNatacion">Equipo Natacion</label>
-                <input type="text" id="inputEquipoNatacion" placeholder="Nombre del Equipo">
-            </div>
-            <br>
-            <div>
-                <label for="inputEquipoNatacion">Nombre del nadador</label>
-                <input type="text" id="inputEquipoNatacion" placeholder="Nombre del Equipo">
-            </div>
-            <br>
-            <div>
-                <label for="inputEquipoNatacion">DNI nadador</label>
-                <input type="text" id="inputEquipoNatacion" placeholder="Nombre del Equipo">
-            </div>
-            <div>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Formulario de Natación</h2>
 
+    <form class="p-4 border rounded shadow bg-light" (ngSubmit)="enviarFormulario()">
+        <!-- Equipo de Natación -->
+        <div class="mb-3">
+            <label for="inputEquipoNatacion" class="form-label">Equipo de Natación</label>
+            <input type="text" id="inputEquipoNatacion" class="form-control" placeholder="Nombre del Equipo" [(ngModel)]="equipoNatacion" name="equipoNatacion">
+        </div>
+
+        <!-- Nombre del Nadador -->
+        <div class="mb-3">
+            <label for="inputNombreNadador" class="form-label">Nombre del Nadador</label>
+            <input type="text" id="inputNombreNadador" class="form-control" placeholder="Nombre del Nadador" [(ngModel)]="nombreNadador" name="nombreNadador">
+        </div>
+
+        <!-- DNI Nadador -->
+        <div class="mb-3">
+            <label for="inputDNINadador" class="form-label">DNI Nadador</label>
+            <input type="text" id="inputDNINadador" class="form-control" placeholder="DNI del Nadador" [(ngModel)]="dniNadador" name="dniNadador">
+        </div>
+
+        <!-- Sexo -->
+        <div class="mb-3">
+            <label class="form-label">Sexo:</label>
+            <div class="form-check">
+                <input type="radio" id="sexoMasculino" name="sexo" value="masculino" class="form-check-input" [(ngModel)]="sexo">
+                <label for="sexoMasculino" class="form-check-label">Masculino</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" id="sexoFemenino" name="sexo" value="femenino" class="form-check-input" [(ngModel)]="sexo">
+                <label for="sexoFemenino" class="form-check-label">Femenino</label>
             </div>
         </div>
-    </div>
-</form>
+
+        <!-- Estilos de Natación -->
+        <div class="mb-3">
+            <label class="form-label">Estilo de Natación:</label>
+            <div class="form-check">
+                <input type="radio" id="estiloLibre" name="estilo" value="libre" class="form-check-input" [(ngModel)]="estilo">
+                <label for="estiloLibre" class="form-check-label">Libre</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" id="estiloEspalda" name="estilo" value="espalda" class="form-check-input" [(ngModel)]="estilo">
+                <label for="estiloEspalda" class="form-check-label">Espalda</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" id="estiloBraza" name="estilo" value="braza" class="form-check-input" [(ngModel)]="estilo">
+                <label for="estiloBraza" class="form-check-label">Braza</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" id="estiloMariposa" name="estilo" value="mariposa" class="form-check-input" [(ngModel)]="estilo">
+                <label for="estiloMariposa" class="form-check-label">Mariposa</label>
+            </div>
+        </div>
+
+        <!-- Pruebas de Natación -->
+        <div class="mb-3">
+            <label for="selectPrueba" class="form-label">Prueba a Nadar:</label>
+            <select id="selectPrueba" class="form-select" [(ngModel)]="pruebaSeleccionada" name="prueba">
+                <option value="">Selecciona una prueba</option>
+                <option *ngFor="let prueba of getPruebasDisponibles()" [value]="prueba">{{ prueba }}</option>
+            </select>
+        </div>
+
+        <!-- Botón Enviar -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Registrar Nadador</button>
+        </div>
+    </form>
+</div>
