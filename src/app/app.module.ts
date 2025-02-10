@@ -8,6 +8,7 @@ import { ComponenteRaulComponent } from './componente-raul/componente-raul.compo
 import { ComponenteAntonioComponent } from './componente-antonio/componente-antonio.component';
 import { FooterComponenteComponent } from './footer-componente/footer-componente.component';
 import { FormularioBaloncestoComponent } from './formulario-baloncesto/formulario-baloncesto.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormularioBaloncestoComponent } from './formulario-baloncesto/formulari
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
