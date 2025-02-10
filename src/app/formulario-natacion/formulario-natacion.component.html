@@ -1,11 +1,12 @@
 <div class="container mt-5">
     <h2 class="text-center mb-4">Formulario de Natación</h2>
-
+<!-- ngSubmit para enviar formulario y va a la funcion nviarFormulario() -->
     <form class="p-4 border rounded shadow bg-light" (ngSubmit)="enviarFormulario()">
         <!-- Equipo de Natación -->
         <div class="mb-3">
             <label for="inputEquipoNatacion" class="form-label">Equipo de Natación</label>
             <input type="text" id="inputEquipoNatacion" class="form-control" placeholder="Nombre del Equipo" [(ngModel)]="equipoNatacion" name="equipoNatacion">
+            <!-- NgModel sirve para recoger la informacion del campo y ponerla como el parametro que se le marca -->
         </div>
 
         <!-- Nombre del Nadador -->
