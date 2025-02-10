@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms'; // 📌 IMPORTA ESTO
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,7 +9,8 @@ import { ComponenteRaulComponent } from './componente-raul/componente-raul.compo
 import { ComponenteAntonioComponent } from './componente-antonio/componente-antonio.component';
 import { FooterComponenteComponent } from './footer-componente/footer-componente.component';
 import { FormularioBaloncestoComponent } from './formulario-baloncesto/formulario-baloncesto.component';
-import { FormsModule } from '@angular/forms';
+import { FormularioNatacionComponent } from './formulario-natacion/formulario-natacion.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,14 @@ import { FormsModule } from '@angular/forms';
     ComponenteRaulComponent,
     ComponenteAntonioComponent,
     FooterComponenteComponent,
-    FormularioBaloncestoComponent
+    FormularioBaloncestoComponent,
+    HeaderComponent,
+    FormularioNatacionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
