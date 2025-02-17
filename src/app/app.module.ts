@@ -23,7 +23,6 @@ import { FormularioRaulComponent } from './formulario-raul/formulario-raul.compo
     FooterComponenteComponent,
     FormularioBaloncestoComponent,
     HeaderComponent,
-    ComponenteAntonioComponent,
     CuerpoComponent,
     FormularioRaulComponent,
     FormularioNatacionComponent
