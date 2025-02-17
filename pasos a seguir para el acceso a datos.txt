@@ -1,0 +1,267 @@
+ACCESO A DATOS MEDIANTE NODE
+
+-Tenia instalado node y npm
+-He instalado xampp
+-He creado una base de datos para mi torneo de futbol
+-He instalado postman
+-He instalado express en la carpeta de backend com el siguiente comando(debemos de estar en la carpeta de backend-node para poder instalarlo correctamente):
+npm install express
+
+
+Pasos a seguir:
+
+
+1.He creado la base de datos en xampp,he creado una base de datos llamada torneo_futbol he puesto lo siguientes script de sql:
+
+
+CREATE TABLE equipos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    entrenador VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    telefono VARCHAR(15) NOT NULL,
+    categoria VARCHAR(50) NOT NULL
+);
+
+
+
+CREATE TABLE jugadores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    equipo_id INT NOT NULL,
+    FOREIGN KEY (equipo_id) REFERENCES equipos(id) ON DELETE CASCADE
+);
+
+
+
+2.He creado una carpeta a parte de la carpeta del proyecto
+
+3.Abro el cmd, escribo los siguientes comandos:
+	-cd backend-node ->para irme hacia la carpeta
+	-npm init -y ->para crear un archivo json de configuracion y asi crear el proyecto node, y -y sirve para rque responda si a 	todas las prdeuntas automaticamente
+
+
+4.Dentro de la carpeta del backend creo un archivo .env y lñe introduzco los siguientes datos:
+
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=torneo_futbol
+DB_PORT=3306
+
+
+DB_HOST=localhost → Porque estamos usando XAMPP en local.
+DB_USER=root → Usuario por defecto de MySQL en XAMPP.
+DB_PASSWORD= → En XAMPP, por defecto, el usuario root no tiene contraseña (déjalo vacío).
+DB_NAME=torneo_futbol → El nombre de la base de datos que creaste.
+DB_PORT=3306 → Puerto por defecto de MySQL.
+
+
+5. Dentro de backend-node creo un archivo llamado db.js y pego el siguiente script:
+
+
+const mysql = require('mysql2');
+require('dotenv').config();
+
+// Crear conexión con la base de datos
+const connection = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT
+});
+
+// Conectar a MySQL
+connection.connect(error => {
+  if (error) {
+    console.error('Error conectando a la base de datos:', error);
+    return;
+  }
+  console.log('Conexión a la base de datos MySQL establecida.');
+});
+
+module.exports = connection;
+
+
+
+ Explicación:
+
+    Importamos mysql2 para manejar la conexión con MySQL.
+    Usamos dotenv para cargar las credenciales desde el archivo .env.
+    Creamos la conexión y la exportamos para usarla en otros archivos.
+
+
+
+
+6. Instalar las dependencias necesarias, para ello debemos de escribir en el cmd el siguiente comando:
+
+npm install mysql2 dotenv
+
+
+ Explicación:
+
+    mysql2 → Permite conectar Node.js con MySQL.
+    dotenv → Carga las variables de entorno del archivo .env.
+
+
+
+7. Crear la ruta para registrar un equipo, para ello debemos de crear un archivo server.js en la carpeta backend-node e introducirle lo siguiente:
+
+
+const express = require('express');
+const app = express();
+const port = 3000;
+const db = require('./db');  // Importamos la conexión a la base de datos
+require('dotenv').config();
+
+// Middleware para parsear JSON
+app.use(express.json());
+
+// Ruta para registrar un equipo
+app.post('/equipo', (req, res) => {
+  const { nombre, entrenador, email, telefono, categoria } = req.body;
+
+  // Validar que los campos requeridos están presentes
+  if (!nombre || !entrenador || !email || !telefono || !categoria) {
+    return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+  }
+
+  // SQL para insertar un nuevo equipo
+  const query = 'INSERT INTO equipos (nombre, entrenador, email, telefono, categoria) VALUES (?, ?, ?, ?, ?)';
+  const values = [nombre, entrenador, email, telefono, categoria];
+
+  // Ejecutamos la consulta
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.error('Error al registrar el equipo:', err);
+      return res.status(500).json({ error: 'Error al registrar el equipo' });
+    }
+    return res.status(201).json({ message: 'Equipo registrado correctamente', equipoId: result.insertId });
+  });
+});
+
+// Arrancar el servidor
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`);
+});
+
+
+Explicación:
+
+    Usamos Express para gestionar las rutas y peticiones HTTP.
+    En la ruta /equipo, esperamos que el frontend envíe los datos del equipo en el cuerpo de la petición (req.body).
+    Se realiza una consulta SQL INSERT INTO para agregar un nuevo equipo a la tabla equipos
+
+
+
+
+8. Iniciar el servidor, para ello debemos de escribir en el cmd el siguiente comando:
+
+node server.js
+
+Tras introducir el comando, nos deberia de responder con lo siguiente:
+Servidor corriendo en http://localhost:3000
+
+
+
+
+9.Ya tenemos todo configurado, ahora debemos de abrir postman para probarlo.
+Abrimos postman y creamos una nueva solicitud POST, para ello debemos de seguir los siguientes pasos:
+1.Crear una coleccion, para ello nos vamos a la barra lateral izquierda de de la aplicacion, buscar collection y darle a new, ponerle un nombre (en mi caso le pondre "Torneo futbol api" y le agregare una descripcion, en mi caso le pondre "Colección de solicitudes para el registro de equipos y jugadores en el torneo de fútbol" y por ultimo solo debemos de guardarlo
+2.Darle a los 3 puntos de la coleccion creada y darle a new request
+
+4.Nombrar la solicitud, en este caso le pondre "registrar equipo"
+5.Agregarle la coleccion que creamos en el apartado 1
+6.FInalmente ara ver todas la ssolicitudes que realicemos solo debemos de darle a la coleccion que hemos creado
+
+
+
+
+PASOS QUE HE TENIDO QUE SEGUIR PARA CONECTAR EL BACK CON EL FRONT:
+
+
+
+1. En el archivo app.module.ts he tenido que introducir lo siguiente:
+
+import { HttpClientModule } from '@angular/common/http';  // Importar HttpClientModule
+
+@NgModule({
+  declarations: [ /* tus componentes */ ],
+  imports: [
+    // otros módulos
+    HttpClientModule, // Agregarlo aquí
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+
+2. Debo de ejecutar el siguiente comando para crear un servicio en angular que se emcarge de enviar los datos al back:
+
+ng generate service servicio-equipo
+
+Dentro de ese arvhico debo de escribir lo siguiente:
+
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ServicioEquipoService {
+
+  private apiUrl = 'http://localhost:3000/equipo';  // URL de tu API en Node.js
+
+  constructor(private http: HttpClient) { }
+
+  registrarEquipo(equipo: any): Observable<any> {
+    return this.http.post(this.apiUrl, equipo);
+  }
+}
+
+3. Ahora en el componente de mi formulario, he importado y usado el servicio para enviar los datos al back, asi que en el componente.ts de mi formulario debo de escribir lo siguiente:
+
+import { Component } from '@angular/core';
+import { ServicioEquipoService } from './servicio-equipo.service';  // Importar el servicio
+
+@Component({
+  selector: 'app-formulario-raul',
+  templateUrl: './formulario-raul.component.html',
+  styleUrls: ['./formulario-raul.component.css']
+})
+export class FormularioRaulComponent {
+  equipo = {
+    nombre: '',
+    entrenador: '',
+    email: '',
+    telefono: '',
+    categoria: '',
+    jugadores: ['']
+  };
+
+  constructor(private servicioEquipo: ServicioEquipoService) { }  // Inyectar el servicio
+
+  registrarEquipo() {
+    this.servicioEquipo.registrarEquipo(this.equipo).subscribe(
+      (response) => {
+        console.log('Equipo registrado:', response);
+        alert('Equipo registrado con éxito!');
+      },
+      (error) => {
+        console.error('Error al registrar equipo:', error);
+        alert('Hubo un error al registrar el equipo.');
+      }
+    );
+  }
+}
+
+
+
+
+
+
+
+
