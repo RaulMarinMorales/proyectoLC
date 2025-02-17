@@ -1,0 +1,25 @@
+
+<!-- La directiva estructural ngFor la estamos usando para iterar sobre una lkista dinamicament a traves d 
+ elementos html, en este caso, en el archivo typescript tenemos tenemos un array torneos, el cual tiene sus propiedades
+ , pues dentro del arvhico html accedemos a ese array y a sus propiedades para ir creando elementos y a la vez
+ mostrarlos, en este ejemplo iteramos desde torneo para poder introducir una imagen, la informacion, la fecha, el 
+ lugar y una breve descripcion, asi cada vez que creemos un elemento nuevo en el array torneos, se nos creara automaticamente
+ una tarjeta nueva en nuestro html -->
+
+
+<div class="torneos-container">
+    <h2>Torneos en Activo</h2>
+    <div class="torneos-grid">
+      <div class="torneo-card" *ngFor="let torneo of torneos">
+        <img [src]="torneo.imagen" alt="Cartel del torneo" class="torneo-img">
+        <div class="torneo-info">
+          <h3>{{ torneo.nombre }}</h3>
+          <p><strong>📅 Fecha:</strong> {{ torneo.fecha }}</p>
+          <p><strong>📍 Lugar:</strong> {{ torneo.lugar }}</p>
+          <p class="torneo-desc">{{ torneo.descripcion }}</p>
+          <button class="ver-mas-btn">Ver más información</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
