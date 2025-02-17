@@ -1,59 +1,71 @@
-# AppAngular
+# Proyecto Angular - AppAngular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
+Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) versión 19.0.2.
 
-## Development server
+## 📌 Requisitos previos
+Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
+- [Node.js](https://nodejs.org/) (Versión recomendada: LTS)
+- [Angular CLI](https://angular.dev/tools/cli) (Instalar con `npm install -g @angular/cli` si no lo tienes ya)
+- [XAMPP](https://www.apachefriends.org/) para gestionar la base de datos MySQL
 
-To start a local development server, run:
 
+---
+
+## ⚙️ Configuración del Backend del formulario de torneo de baloncesto realizado por Raul Marin Morales
+El backend del proyecto se encuentra en un repositorio separado llamado **back-ProyectoLibreConfiguracion**. Para ejecutarlo junto con el frontend, sigue estos pasos:
+
+### 1️⃣ Clonar ambos repositorios en carpetas diferentes
 ```bash
+git clone https://github.com/RaulMarinMorales/proyectoLC.git
+
+git clone https://github.com/RaulMarinMorales/back-ProyectoLibreConfiguracion.git
+```
+
+### 2️⃣ Instalar dependencias
+#### 📂 Frontend (Angular)
+```bash
+cd proyectoLC
+npm install
+```
+#### 📂 Backend (Node.js + Express)
+En el cmd escribir lo siguiente:
+```bash
+cd back-ProyectoLibreConfiguracion
+npm install
+```
+
+### 3️⃣ Iniciar los servidores
+#### 🔹 Iniciar el backend
+Asegúrate de que MySQL esté corriendo en XAMPP y luego ejecuta:
+En el cmd escribir lo siguiente:
+```bash
+cd back-ProyectoLibreConfiguracion
+node server.js
+```
+
+#### 🔹 Iniciar el frontend
+En una nueva terminal, ejecuta:
+```bash
+cd proyectoLC
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Ahora, la aplicación Angular y el backend estarán corriendo simultáneamente.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+## 🛠️ Generación de Código
+Angular CLI incluye herramientas poderosas para generar código. Para crear un nuevo componente, usa:
 ```bash
-ng generate component component-name
+ng generate component nombre-del-componente
 ```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+Para ver todos los esquemas disponibles (componentes, directivas, pipes, etc.), ejecuta:
 ```bash
 ng generate --help
 ```
 
-## Building
+---
 
-To build the project run:
+## 📚 Recursos Adicionales
+Para más información sobre Angular CLI y sus comandos, visita la [documentación oficial](https://angular.dev/tools/cli).
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

@@ -1,0 +1,16 @@
+cd "C:\Users\raulm\Desktop\Raul\Proyecto libre configuracion\backend-node"
+
+npm install(solo la primera vez)
+
+(abrir el xampp y levantarlo)
+
+node server.js
+
+cd "C:\Users\raulm\Desktop\Raul\Proyecto libre configuracion\proyectoLC"
+
+npm install(solo la primera vez)
+
+ng serve
+
+
+IMPORTANTE LEVANTAR EL XAMPP
