@@ -29,11 +29,9 @@ import { FormularioRaulComponent } from './formulario-raul/formulario-raul.compo
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
-    HttpClientModule,  // <-- AÑADIR HttpClientModule AQUÍ
-    FormularioRaulComponent,
-    AppRoutingModule 
+    HttpClientModule,
+    AppRoutingModule // <-- AÑADIR HttpClientModule AQUÍ 
   ],
   providers: [],
   bootstrap: [AppComponent]
