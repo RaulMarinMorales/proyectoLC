@@ -7,8 +7,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-formulario-raul',
   templateUrl: './formulario-raul.component.html',
   styleUrls: ['./formulario-raul.component.css'],
-  standalone: false,
-  imports: [CommonModule, FormsModule]
+  standalone: false
 })
 export class FormularioRaulComponent {
   equipo = {

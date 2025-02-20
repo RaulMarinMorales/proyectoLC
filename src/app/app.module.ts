@@ -32,8 +32,7 @@ import { FormularioRaulComponent } from './formulario-raul/formulario-raul.compo
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,  // <-- AÑADIR HttpClientModule AQUÍ
-    FormularioRaulComponent 
+    HttpClientModule  // <-- AÑADIR HttpClientModule AQUÍ 
   ],
   providers: [],
   bootstrap: [AppComponent]
