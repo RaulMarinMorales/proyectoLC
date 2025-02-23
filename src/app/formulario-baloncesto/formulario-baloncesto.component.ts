@@ -1,101 +1,114 @@
 import { Component } from '@angular/core';
+import { ServicioBaloncestoService } from '../services/servicio-baloncesto.service';
 
 @Component({
   selector: 'app-formulario-baloncesto',
-  standalone: false,
-  
   templateUrl: './formulario-baloncesto.component.html',
-  styleUrl: './formulario-baloncesto.component.css'
+  styleUrls: ['./formulario-baloncesto.component.css'],
+  standalone: false
 })
 export class FormularioBaloncestoComponent {
 
+  equipos3x3: any[] = [];
+  equipos5x5: any[] = [];
 
-  equipos3x3: any[] = []; 
-  equipos5x5: any[] = []; 
+  modalidadSeleccionada: string = 'seleccioneModalidad';
+  maxJugadores: number = 0;
 
-  mostrarFormulario3x3: boolean = false;
-  mostrarFormulario5x5: boolean = false;
+  jugadorPattern: string = "^[a-zA-Z ]{3,50}$"; // Validación de nombre
 
-  
   equipo: any = {
-    nombreEquipo: '',
+    nombre_equipo: '',
     localidad: '',
     direccion: '',
     capitan: '',
-    jugadores: []
+    jugadores: [] as { nombre : string}[],
   };
 
- 
+  constructor(private servicioBal: ServicioBaloncestoService) {}  
+
   seleccionarModalidad(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
-    const modalidad = selectElement.value;
+    this.modalidadSeleccionada = selectElement.value;
 
-    if (modalidad === '3x3') {
-      this.mostrarFormulario3x3 = true;
-      this.mostrarFormulario5x5 = false;
-    } else if (modalidad === '5x5') {
-      this.mostrarFormulario3x3 = false;
-      this.mostrarFormulario5x5 = true;
+    if (this.modalidadSeleccionada === '3x3') {
+      this.maxJugadores = 4;
+    } else if (this.modalidadSeleccionada === '5x5') {
+      this.maxJugadores = 9;
     } else {
-      this.mostrarFormulario3x3 = false;
-      this.mostrarFormulario5x5 = false;
+      this.maxJugadores = 0;
+    }
+
+    // Limpiamos los jugadores en lugar de rellenarlos automáticamente
+    this.equipo.jugadores = [];
+  }
+
+  inscribirEquipo() {
+    if (this.modalidadSeleccionada === '3x3') {
+      this.inscribirEquipo3x3();
+    } else if (this.modalidadSeleccionada === '5x5') {
+      this.inscribirEquipo5x5();
     }
   }
 
-inscribirEquipo3x3() {
-  const equipo = {
-    nombre: (document.getElementById('inputNombreEquipo') as HTMLInputElement).value,
-    localidad: (document.getElementById('inputLocalidadEquipo') as HTMLInputElement).value,
-    direccion: (document.getElementById('inputDireccionEquipo') as HTMLInputElement).value,
-    modalidad: '3x3',
-    capitan: (document.getElementById('inputNombreCapitan') as HTMLInputElement).value,
-    jugadores: [
-      (document.getElementById('inputNombreJug1') as HTMLInputElement).value,
-      (document.getElementById('inputNombreJug2') as HTMLInputElement).value,
-      (document.getElementById('inputNombreJug3') as HTMLInputElement).value,
-    ]
-  };
+  inscribirEquipo3x3() {
+    const equipo = { ...this.equipo };
+    console.log('Enviando equipo 3x3:', equipo);
 
-  this.equipos3x3.push(equipo);
-  this.resetFormulario();
-  alert('Equipo inscrito en 3x3');
+    this.servicioBal.inscribirEquipo3x3(equipo).subscribe(
+      response => {
+        console.log(response);
+        this.equipos3x3.push(equipo);
+        this.resetFormulario();
+        alert('Equipo inscrito en 3x3');
+      },
+      error => {
+        console.error(error);
+        alert('Error al inscribir equipo');
+      }
+    );
+  }
+
+  inscribirEquipo5x5() {
+    const equipo = { ...this.equipo };
+    this.servicioBal.inscribirEquipo5x5(equipo).subscribe(
+      response => {
+        console.log(response);
+        this.equipos5x5.push(equipo);
+        this.resetFormulario();
+        alert('Equipo inscrito en 5x5');
+      },
+      error => {
+        console.error(error);
+        alert('Error al inscribir equipo');
+      }
+    );
+  }
+
+  resetFormulario() {
+    this.equipo = {
+      nombre_equipo: '',
+      localidad: '',
+      direccion: '',
+      capitan: '',
+      jugadores: []
+    };
+    this.modalidadSeleccionada = 'seleccioneModalidad';
+    this.maxJugadores = 0;
+  }
+
+  agregarJugador() {
+    if (this.equipo.jugadores.length < this.maxJugadores) {
+      this.equipo.jugadores.push({ nombre: '' });
+    }
+  }
+
+  eliminarJugador(index: number) {
+    this.equipo.jugadores.splice(index, 1);
+  }
+
+  trackByIndex(index: number, item: any): number {
+    return index;
+  }
 }
 
-inscribirEquipo5x5() {
-  const equipo = {
-    nombre: (document.getElementById('inputNombreEquipo') as HTMLInputElement).value,
-    localidad: (document.getElementById('inputLocalidadEquipo') as HTMLInputElement).value,
-    direccion: (document.getElementById('inputDireccionEquipo') as HTMLInputElement).value,
-    modalidad: '5x5',
-    capitan: (document.getElementById('inputNombreCapitan5') as HTMLInputElement).value,
-    jugadores: [
-      (document.getElementById('inputNombreJug15') as HTMLInputElement).value,
-      (document.getElementById('inputNombreJug25') as HTMLInputElement).value,
-      (document.getElementById('inputNombreJug35') as HTMLInputElement).value,
-      (document.getElementById('inputNombreJug45') as HTMLInputElement).value,
-      (document.getElementById('inputNombreJug55') as HTMLInputElement).value,
-      (document.getElementById('inputNombreJug65') as HTMLInputElement).value,
-      (document.getElementById('inputNombreJug75') as HTMLInputElement).value,
-      (document.getElementById('inputNombreJug85') as HTMLInputElement).value,
-      (document.getElementById('inputNombreJug95') as HTMLInputElement).value,
-    ]
-  };
-
-  this.equipos5x5.push(equipo);
-  this.resetFormulario();
-  alert('Equipo inscrito en 5x5');
-}
-
-resetFormulario() {
-  const inputs = document.querySelectorAll('input');
-  inputs.forEach((input) => input.value = '');
-  this.mostrarFormulario3x3 = false;
-  this.mostrarFormulario5x5 = false;
-}
-
-mostrarArrays() {
-  console.log('Equipos 3x3:', this.equipos3x3);
-  console.log('Equipos 5x5:', this.equipos5x5);
-}
-
-}
