@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { NatacionService } from '../natacion.service'; // Importamos el servicio
 
 @Component({
   selector: 'app-formulario-natacion',
-  standalone: false,
-
   templateUrl: './formulario-natacion.component.html',
-  styleUrl: './formulario-natacion.component.css'
+  styleUrls: ['./formulario-natacion.component.css'],
+  standalone: false
 })
 export class FormularioNatacionComponent {
   equipoNatacion: string = '';
@@ -15,8 +15,7 @@ export class FormularioNatacionComponent {
   estilo: string = '';
   pruebaSeleccionada: string = '';
 
-  // Array para almacenar los nadadores
-  nadadores: any[] = [];
+  constructor(private natacionService: NatacionService) { } // Inyectamos el servicio
 
   // Definir las pruebas según el estilo
   pruebasNatacion: { [key: string]: string[] } = {
@@ -25,12 +24,13 @@ export class FormularioNatacionComponent {
     braza: ['50m', '100m', '200m'],
     mariposa: ['50m', '100m', '200m']
   };
+
   getPruebasDisponibles(): string[] {
     return this.estilo ? this.pruebasNatacion[this.estilo] : [];
   }
-  // Método para manejar el envío del formulario
+
+  // Método para enviar el formulario al backend
   enviarFormulario(): void {
-    // Crear el objeto con los datos del nadador
     const nuevoNadador = {
       equipo: this.equipoNatacion,
       nombre: this.nombreNadador,
@@ -39,12 +39,22 @@ export class FormularioNatacionComponent {
       estilo: this.estilo,
       prueba: this.pruebaSeleccionada
     };
-    // Agregar el nuevo nadador al array
-    this.nadadores.push(nuevoNadador);
+    console.log('Datos enviados al backend:', nuevoNadador);
 
-    // Mostrar los nadadores almacenados en la consola
-    console.log('Nadadores registrados:', this.nadadores);
+    // Llamamos al servicio para registrar el nadador
+    this.natacionService.registrarNadador(nuevoNadador).subscribe(
+      (response) => {
+        console.log('Nadador registrado correctamente:', response);
+        alert('Nadador registrado con éxito!');
+        this.resetFormulario();
+      },
+      (error) => {
+        console.error('Error al registrar el nadador:', error);
+        alert('Hubo un error al registrar el nadador.');
+      }
+    );
   }
+
   // Método para resetear los campos del formulario
   resetFormulario(): void {
     this.equipoNatacion = '';
@@ -54,5 +64,4 @@ export class FormularioNatacionComponent {
     this.estilo = '';
     this.pruebaSeleccionada = '';
   }
-
 }

@@ -1,0 +1,91 @@
+<div class="container my-4">
+  <h2 class="text-center mb-4">Selecciona un equipo de natación</h2>
+
+  <!-- Select para elegir el equipo -->
+  <div class="mb-4">
+    <select [(ngModel)]="equipoSeleccionado" (change)="cargarNadadores()" class="form-select">
+      <option *ngFor="let equipo of equipos" [value]="equipo.equipo">{{ equipo.equipo }}</option>
+    </select>
+  </div>
+
+  <!-- Mostrar los nadadores en una tabla -->
+  <div *ngIf="nadadores.length > 0">
+    <h3 class="text-center mb-4">Nadadores del equipo: {{ equipoSeleccionado }}</h3>
+    <table class="table table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>DNI</th>
+          <th>Sexo</th>
+          <th>Estilo</th>
+          <th>Prueba</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let nadador of nadadores">
+          <td>{{ nadador.nombre }}</td>
+          <td>{{ nadador.dni }}</td>
+          <td>{{ nadador.sexo }}</td>
+          <td>{{ nadador.estilo }}</td>
+          <td>{{ nadador.prueba }}</td>
+          <td>
+            <button class="btn btn-warning" (click)="seleccionarNadador(nadador)">Ver detalles</button>
+            <button class="btn btn-danger" (click)="eliminarNadador(nadador.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Detalles del nadador seleccionado -->
+  <div *ngIf="nadadorDetalles">
+    <h3 class="text-center mb-4">Detalles del Nadador</h3>
+    <table class="table table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>DNI</th>
+          <th>Sexo</th>
+          <th>Estilo</th>
+          <th>Prueba</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input [(ngModel)]="nadadorDetalles.nombre" [readonly]="!editando" class="form-control" /></td>
+          <td><input [(ngModel)]="nadadorDetalles.dni" [readonly]="!editando" class="form-control" /></td>
+          <td><input [(ngModel)]="nadadorDetalles.sexo" [readonly]="!editando" class="form-control" /></td>
+
+          <!-- Campo Estilo - Cambiar a select -->
+          <td>
+            <select [(ngModel)]="nadadorDetalles.estilo" [disabled]="!editando" class="form-select">
+              <option value="libre" *ngIf="editando">Libre</option>
+              <option value="espalda" *ngIf="editando">Espalda</option>
+              <option value="braza" *ngIf="editando">Braza</option>
+              <option value="mariposa" *ngIf="editando">Mariposa</option>
+            </select>
+          </td>
+
+          <!-- Campo Prueba - Cambiar a select -->
+          <td>
+            <select [(ngModel)]="nadadorDetalles.prueba" [disabled]="!editando" class="form-select">
+              <option value="50m" *ngIf="editando">50m</option>
+              <option value="100m" *ngIf="editando">100m</option>
+              <option value="200m" *ngIf="editando">200m</option>
+              <!-- Puedes agregar otras opciones según corresponda -->
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Botones de edición -->
+    <div class="d-flex justify-content-center gap-3 mt-4">
+      <button *ngIf="!editando" class="btn btn-warning" (click)="habilitarEdicion()">Editar</button>
+      <button *ngIf="editando" class="btn btn-success" (click)="guardarCambios()">Guardar Cambios</button>
+      <button *ngIf="editando" class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
+    </div>
+  </div>
+
+</div>

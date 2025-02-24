@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
 import { EquipoService } from '../servicio-equipo.service'; 
-import { CommonModule } from '@angular/common'; 
-import { FormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-formulario-raul',
   templateUrl: './formulario-raul.component.html',
   styleUrls: ['./formulario-raul.component.css'],
-  standalone: false,
-  imports: [CommonModule, FormsModule]
+  standalone: false
 })
 export class FormularioRaulComponent {
   equipo = {

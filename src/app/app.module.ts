@@ -9,11 +9,13 @@ import { FormularioBaloncestoComponent } from './formulario-baloncesto/formulari
 import { FormularioNatacionComponent } from './formulario-natacion/formulario-natacion.component';
 import { HeaderComponent } from './header/header.component';
 import { CuerpoComponent } from './cuerpo/cuerpo.component';
-import { HttpClientModule } from '@angular/common/http';  // <-- IMPORTAR HttpClientModule
+import { HttpClient, HttpClientModule } from '@angular/common/http';  // <-- IMPORTAR HttpClientModule
 import { FormsModule } from '@angular/forms';
+
 
 // Importamos FormularioRaulComponent para utilizarlo como componente standalone
 import { FormularioRaulComponent } from './formulario-raul/formulario-raul.component';
+import { ListarNadadoresComponent } from './listar-nadadores/listar-nadadores.component';
 
 @NgModule({
   declarations: [
@@ -23,17 +25,16 @@ import { FormularioRaulComponent } from './formulario-raul/formulario-raul.compo
     FooterComponenteComponent,
     FormularioBaloncestoComponent,
     HeaderComponent,
-    ComponenteAntonioComponent,
     CuerpoComponent,
     FormularioRaulComponent,
-    FormularioNatacionComponent
+    FormularioNatacionComponent,
+    ListarNadadoresComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,  // <-- AÑADIR HttpClientModule AQUÍ
-    FormularioRaulComponent 
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
