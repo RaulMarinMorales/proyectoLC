@@ -22,7 +22,7 @@ export class FormularioBaloncestoComponent {
     localidad: '',
     direccion: '',
     capitan: '',
-    jugadores: [] as { nombre : string}[],
+    jugadores: ['']
   };
 
   constructor(private servicioBal: ServicioBaloncestoService) {}  
@@ -53,9 +53,14 @@ export class FormularioBaloncestoComponent {
 
   inscribirEquipo3x3() {
     const equipo = { ...this.equipo };
-    console.log('Enviando equipo 3x3:', equipo);
-
-    this.servicioBal.inscribirEquipo3x3(equipo).subscribe(
+  
+    // Convierte los jugadores a un array de nombres (si es necesario)
+    const jugadoresSoloNombres = equipo.jugadores.map((jugador: { nombre: any; }) => jugador.nombre);
+  
+    this.servicioBal.inscribirEquipo3x3({
+      ...equipo,
+      jugadores: jugadoresSoloNombres  // Enviar solo los nombres de los jugadores
+    }).subscribe(
       response => {
         console.log(response);
         this.equipos3x3.push(equipo);
@@ -68,6 +73,7 @@ export class FormularioBaloncestoComponent {
       }
     );
   }
+  
 
   inscribirEquipo5x5() {
     const equipo = { ...this.equipo };
@@ -99,15 +105,16 @@ export class FormularioBaloncestoComponent {
 
   agregarJugador() {
     if (this.equipo.jugadores.length < this.maxJugadores) {
-      this.equipo.jugadores.push({ nombre: '' });
+      this.equipo.jugadores.push();  // Mantén el formato de objeto
     }
   }
+  
 
   eliminarJugador(index: number) {
     this.equipo.jugadores.splice(index, 1);
   }
 
-  trackByIndex(index: number, item: any): number {
+  trackByIndex(index: number, jugador: string): number {
     return index;
   }
 }

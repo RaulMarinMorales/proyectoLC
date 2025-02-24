@@ -24,4 +24,9 @@ export class ServicioBaloncestoService {
   obtenerEquipos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/equipos`);
   }
+
+  // Método para eliminar un equipo
+  eliminarEquipo(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/equipos/${id}`);  // Endpoint corregido
+  }
 }

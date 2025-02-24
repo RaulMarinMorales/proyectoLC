@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 
 // Importamos FormularioRaulComponent para utilizarlo como componente standalone
 import { FormularioRaulComponent } from './formulario-raul/formulario-raul.component';
+import { ListarEquiposBaloncestoComponent } from './listar-equipos-baloncesto/listar-equipos-baloncesto.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FormularioRaulComponent } from './formulario-raul/formulario-raul.compo
     HeaderComponent,
     CuerpoComponent,
     FormularioRaulComponent,
-    FormularioNatacionComponent
+    FormularioNatacionComponent,
+    ListarEquiposBaloncestoComponent
   ],
   imports: [
     BrowserModule,
