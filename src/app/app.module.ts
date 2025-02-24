@@ -9,13 +9,12 @@ import { FormularioBaloncestoComponent } from './formulario-baloncesto/formulari
 import { FormularioNatacionComponent } from './formulario-natacion/formulario-natacion.component';
 import { HeaderComponent } from './header/header.component';
 import { CuerpoComponent } from './cuerpo/cuerpo.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';  // <-- IMPORTAR HttpClientModule
+import { HttpClient, HttpClientModule } from '@angular/common/http'; 
 import { FormsModule } from '@angular/forms';
-
 import { ListarNadadoresComponent } from './listar-nadadores/listar-nadadores.component';
 import { FormularioFutbolComponent } from './formulario-futbol/formulario-futbol.component';
 import { ListaEquiposComponent } from './listar-equipos-futbol/listar-equipos-futbol.component';
-
+import { ListarEquiposBaloncestoComponent } from './listar-equipos-baloncesto/listar-equipos-baloncesto.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +29,9 @@ import { ListaEquiposComponent } from './listar-equipos-futbol/listar-equipos-fu
     FormularioNatacionComponent,
     ListarNadadoresComponent,
     FormularioFutbolComponent,
-    ListaEquiposComponent
+    ListaEquiposComponent,
+    FormularioNatacionComponent,
+    ListarEquiposBaloncestoComponent
   ],
   imports: [
     BrowserModule,
