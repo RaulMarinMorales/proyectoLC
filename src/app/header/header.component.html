@@ -2,8 +2,8 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
         <!-- Logo a la izquierda -->
-        <a class="navbar-brand" routerLink="home" href="#">
-            <img src="../../assets/logos/logo-web.png" alt="Logo" width="90" height="90">
+        <a class="navbar-brand" href="#">
+            <img src="../../assets/logo/logo-web.png" alt="Logo" width="90" height="90">
         </a>
       
 
@@ -16,6 +16,20 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" routerLink="/admin-baloncesto">Baloncesto</a></li>
+                    <li><a class="dropdown-item" routerLink="/admin-natacion">Natacion</a></li>
+                    <li><a class="dropdown-item" routerLink="/adminFutbol">Futbol</a></li>
+                </ul>
+            </li>
+        </ul>
+        
+        <!-- Dropdown para Administrar -->
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Administrar
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" routerLink="/adminBaloncesto">Baloncesto</a></li>
                     <li><a class="dropdown-item" routerLink="/admin-natacion">Natacion</a></li>
                     <li><a class="dropdown-item" routerLink="/adminFutbol">Futbol</a></li>
                 </ul>

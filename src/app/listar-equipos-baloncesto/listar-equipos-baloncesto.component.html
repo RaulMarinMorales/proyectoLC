@@ -1,0 +1,37 @@
+<div class="container mt-4">
+    <h2>Lista de Equipos de Baloncesto</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Localidad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let equipo of equiposBaloncesto; trackBy: trackByIndex">
+          <td>{{ equipo.id }}</td>
+          <td>{{ equipo.nombre_equipo }}</td>
+          <td>{{ equipo.localidad }}</td>
+          <td>
+            <button class="btn btn-success" (click)="toggleJugadoresVisibles(equipo.id)">
+              Ver Jugadores
+            </button>
+            <button class="btn btn-danger" (click)="eliminarEquipo(equipo.id)">Eliminar</button>
+          </td>
+        </tr>
+        <!-- Mostrar jugadores solo si la visibilidad está activada -->
+        <tr *ngFor="let equipo of equiposBaloncesto">
+          <td colspan="4" *ngIf="jugadoresVisibles[equipo.id]">
+            <h3>Jugadores de {{ equipo.nombre_equipo }}</h3>
+            <ul>
+              <!-- Muestra solo los nombres de los jugadores -->
+              <li *ngFor="let jugador of equipo.jugadores">{{ jugador }}</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

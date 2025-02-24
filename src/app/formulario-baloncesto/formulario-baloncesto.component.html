@@ -1,120 +1,60 @@
-<div class="container-fluid">
-    <h1><u><strong>Inscripcion Equipo Baloncesto</strong></u></h1>
-  
-    <!-- Primer formulario -->
-    <form class="form-control">
-      <label for="inputNombreEquipo">Nombre Equipo: </label>
-      <input type="text" id="inputNombreEquipo" name="inputNombreEquipo" placeholder="Nombre del Equipo" [(ngModel)]="equipo.nombreEquipo" #nombreEquipo="ngModel" required>
-      
-      <br><br>
-  
-      <label for="inputLocalidadEquipo">Localidad Equipo: </label>
-      <input type="text" id="inputLocalidadEquipo" name="inputLocalidadEquipo" placeholder="Localidad del Equipo" [(ngModel)]="equipo.localidad">
-  
-      <br><br>
-  
-      <label for="inputDireccionEquipo">Direccion Equipo: </label>
-      <input type="text" id="inputDireccionEquipo" name="inputDireccionEquipo" placeholder="Direccion del Equipo" [(ngModel)]="equipo.direccion">
-  
-      <br><br>
-  
-      <label for="selectModalidadBaloncesto">Modalidad: </label>
-      <select name="selectModalidadBaloncesto" id="selectModalidadBaloncesto" (change)="seleccionarModalidad($event)">
-        <option value="seleccioneModalidad">Seleccione Modalidad</option>
-        <option value="3x3">3 x 3</option>
-        <option value="5x5">5 x 5</option>
+<div class="container mt-5 mb-5 p-4">
+<form class="card p-4 shadow-sm">
+  <h2 class="text-center mb-4">Inscripción Equipo de Baloncesto</h2>
+
+  <div class="mb-3">
+      <label for="inputNombreEquipo" class="form-label">Nombre del Equipo</label>
+      <input type="text" class="form-control" id="inputNombreEquipo" name="nombre_equipo"
+          placeholder="Nombre del Equipo" [(ngModel)]="equipo.nombre_equipo" required>
+  </div>
+
+  <div class="mb-3">
+      <label for="inputLocalidadEquipo" class="form-label">Localidad del Equipo</label>
+      <input type="text" class="form-control" id="inputLocalidadEquipo" name="localidad"
+          placeholder="Localidad del Equipo" [(ngModel)]="equipo.localidad">
+  </div>
+
+  <div class="mb-3">
+      <label for="inputDireccionEquipo" class="form-label">Dirección del Equipo</label>
+      <input type="text" class="form-control" id="inputDireccionEquipo" name="direccion"
+          placeholder="Dirección del Equipo" [(ngModel)]="equipo.direccion">
+  </div>
+
+  <div class="mb-3">
+      <label for="selectModalidadBaloncesto" class="form-label">Modalidad</label>
+      <select class="form-select" id="selectModalidadBaloncesto" (change)="seleccionarModalidad($event)">
+          <option value="seleccioneModalidad">Seleccione Modalidad</option>
+          <option value="3x3">3 x 3</option>
+          <option value="5x5">5 x 5</option>
       </select>
-    </form>
+  </div>
+</form>
 
-    <br><br>
-  
-    <!-- Formulario 3x3 -->
-    <form class="form-control" *ngIf="mostrarFormulario3x3">
-      <label for="inputNombreCapitan">Nombre Capitán: </label>
-      <input type="text" id="inputNombreCapitan" name="inputNombreCapitan" placeholder="Nombre del Capitan" [(ngModel)]="equipo.capitan">
-  
-      <br><br>
-  
-      <label for="inputNombreJug1">Nombre Jugador 1: </label>
-      <input type="text" id="inputNombreJug1" name="inputNombreJug1" placeholder="Nombre del Jugador 1" [(ngModel)]="equipo.jugadores[0]">
-  
-      <br><br>        
-          
-      <label for="inputNombreJug2">Nombre Jugador 2: </label>
-      <input type="text" id="inputNombreJug2" name="inputNombreJug2" placeholder="Nombre del Jugador 2" [(ngModel)]="equipo.jugadores[1]">
-  
-      <br><br>        
-          
-      <label for="inputNombreJug3">Nombre Jugador 3: </label>
-      <input type="text" id="inputNombreJug3" name="inputNombreJug3" placeholder="Nombre del Jugador 3" [(ngModel)]="equipo.jugadores[2]">
-  
-      <br><br>
-  
-      <button class="btn btn-primary" id="botonInscribir3x3" name="botonInscribir3x3" type="button" (click)="inscribirEquipo3x3()">Inscribir</button>
-    </form>
-  
-    <!-- Formulario 5x5 -->
-    <form class="form-control" *ngIf="mostrarFormulario5x5">
-      <label for="inputNombreCapitan5">Nombre Capitán: </label>
-      <input type="text" id="inputNombreCapitan5" name="inputNombreCapitan5" placeholder="Nombre del Capitan" [(ngModel)]="equipo.capitan">
-  
-      <br><br>
-  
-      <label for="inputNombreJug15">Nombre Jugador 1: </label>
-      <input type="text" id="inputNombreJug15" name="inputNombreJug15" placeholder="Nombre del Jugador 1" [(ngModel)]="equipo.jugadores[0]">
-  
-      <br><br>        
-          
-      <label for="inputNombreJug25">Nombre Jugador 2: </label>
-      <input type="text" id="inputNombreJug25" name="inputNombreJug25" placeholder="Nombre del Jugador 2" [(ngModel)]="equipo.jugadores[1]">
-  
-      <br><br>        
-          
-      <label for="inputNombreJug35">Nombre Jugador 3: </label>
-      <input type="text" id="inputNombreJug35" name="inputNombreJug35" placeholder="Nombre del Jugador 3" [(ngModel)]="equipo.jugadores[2]">
-  
-      <br><br>
-  
-      <label for="inputNombreJug45">Nombre Jugador 4: </label>
-      <input type="text" id="inputNombreJug45" name="inputNombreJug45" placeholder="Nombre del Jugador 4" [(ngModel)]="equipo.jugadores[3]">
-  
-      <br><br>
-  
-      <label for="inputNombreJug55">Nombre Jugador 5: </label>
-      <input type="text" id="inputNombreJug55" name="inputNombreJug55" placeholder="Nombre del Jugador 5" [(ngModel)]="equipo.jugadores[4]">
-  
-      <br><br>
-  
-      <label for="inputNombreJug65">Nombre Jugador 6: </label>
-      <input type="text" id="inputNombreJug65" name="inputNombreJug65" placeholder="Nombre del Jugador 6" [(ngModel)]="equipo.jugadores[5]">
-  
-      <br><br>
-  
-      <label for="inputNombreJug75">Nombre Jugador 7: </label>
-      <input type="text" id="inputNombreJug75" name="inputNombreJug75" placeholder="Nombre del Jugador 7" [(ngModel)]="equipo.jugadores[6]">
-  
-      <br><br>
-  
-      <label for="inputNombreJug85">Nombre Jugador 8: </label>
-      <input type="text" id="inputNombreJug85" name="inputNombreJug85" placeholder="Nombre del Jugador 8" [(ngModel)]="equipo.jugadores[7]">
-  
-      <br><br>
-  
-      <label for="inputNombreJug95">Nombre Jugador 9: </label>
-      <input type="text" id="inputNombreJug95" name="inputNombreJug95" placeholder="Nombre del Jugador 9" [(ngModel)]="equipo.jugadores[8]">
-  
-      <br><br>
-  
-      <button class="btn btn-primary" id="botonInscribir5x5" name="botonInscribir5x5" type="button" (click)="inscribirEquipo5x5()">Inscribir</button>
-    </form>
+<!-- Formulario Dinámico -->
+<form class="card p-4 mt-4 shadow-sm" *ngIf="modalidadSeleccionada !== 'seleccioneModalidad'">
+  <div class="mb-3">
+      <label class="form-label text-dark fs-5">Nombre Capitán</label>
+      <input type="text" class="form-control form-control-lg" name="capitan" placeholder="Nombre del Capitán"
+          [(ngModel)]="equipo.capitan">
+  </div>
 
-    <br><br>
-
-    <button (click)="mostrarArrays()">Mostrar Equipos</button>
-
-
-    <br><br>
+  <!-- Jugadores -->
+  <div class="mb-4">
+    <label class="form-label text-dark fs-5">Jugadores</label>
+    <div *ngFor="let jugador of equipo.jugadores; let i = index; trackBy: trackByIndex" class="d-flex align-items-center mb-3">
+      <input [(ngModel)]="equipo.jugadores[i].nombre" name="jugador{{i}}" placeholder="Nombre y apellidos del jugador" required class="form-control form-control-lg me-2" [pattern]="jugadorPattern" />
+      <button type="button" class="btn btn-danger btn-lg" (click)="eliminarJugador(i)">
+        <i class="bi bi-x-circle"></i> Eliminar
+      </button>
+    </div>
+    <button type="button" class="btn btn-outline-success btn-lg w-100" (click)="agregarJugador()" [disabled]="equipo.jugadores.length >= maxJugadores">
+      <i class="bi bi-plus-circle"></i> Agregar Jugador (Máximo {{ maxJugadores }})
+    </button>
   </div>
   
 
-  
+  <button class="btn btn-primary btn-lg w-100" (click)="inscribirEquipo()" type="button">
+      Inscribir
+  </button>
+</form>
+</div>
