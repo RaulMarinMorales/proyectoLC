@@ -1,0 +1,67 @@
+<div class="container py-5">
+  <div class="formulario">
+    <form (ngSubmit)="registrarEquipo()">
+      <h2 class="text-center mb-4">Formulario de Registro de Equipo</h2>
+      
+      <!-- Nombre del equipo -->
+      <div class="mb-4">
+        <label for="nombre" class="form-label text-dark fs-5">Nombre del equipo</label>
+        <input id="nombre" [(ngModel)]="equipo.nombre" name="nombre" required class="form-control form-control-lg" />
+      </div>
+
+      <!-- Entrenador -->
+      <div class="mb-4">
+        <label for="entrenador" class="form-label text-dark fs-5">Entrenador</label>
+        <input id="entrenador" [(ngModel)]="equipo.entrenador" name="entrenador" required class="form-control form-control-lg" />
+      </div>
+
+      <!-- Correo electrónico -->
+      <div class="mb-4">
+        <label for="email" class="form-label text-dark fs-5">Correo electrónico</label>
+        <input id="email" [(ngModel)]="equipo.email" name="email" type="email" required class="form-control form-control-lg" 
+               [pattern]="emailPattern" />
+      </div>
+
+      <!-- Teléfono -->
+      <div class="mb-4">
+        <label for="telefono" class="form-label text-dark fs-5">Teléfono</label>
+        <input id="telefono" [(ngModel)]="equipo.telefono" name="telefono" required class="form-control form-control-lg" 
+               [pattern]="telefonoPattern" maxlength="9" />
+      </div>
+
+      <!-- Categoría -->
+      <div class="mb-4">
+        <label for="categoria" class="form-label text-dark fs-5">Categoría</label>
+        <select id="categoria" [(ngModel)]="equipo.categoria" name="categoria" required class="form-select form-select-lg">
+          <option *ngFor="let categoria of categorias" [ngValue]="categoria">{{ categoria }}</option>
+        </select>
+      </div>
+
+      <!-- Jugadores -->
+      <div class="mb-4">
+        <label class="form-label text-dark fs-5">Jugadores</label>
+        <div *ngFor="let jugador of equipo.jugadores; let i = index; trackBy: trackByIndex" class="d-flex align-items-center mb-3">
+          <input [(ngModel)]="equipo.jugadores[i]" name="jugador{{ i }}" required class="form-control form-control-lg me-2" 
+                 placeholder="Nombre y apellidos del jugador" />
+          <button type="button" class="btn btn-danger btn-lg" (click)="eliminarJugador(i)">
+            <i class="bi bi-x-circle"></i> Eliminar
+          </button>
+        </div>
+        <button type="button" class="btn btn-outline-success btn-lg w-100" (click)="agregarJugador()">
+          <i class="bi bi-plus-circle"></i> Agregar Jugador (Máximo 15)
+        </button>
+      </div>
+
+      <!-- Mensajes de error y éxito -->
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+
+      <!-- Botón para registrar -->
+      <button type="submit" class="btn btn-primary btn-lg w-100">Registrar equipo</button>
+    </form>
+  </div>
+</div>

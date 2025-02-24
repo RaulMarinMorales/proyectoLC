@@ -1,79 +1,48 @@
-<!-- Explicacion de la directiva usada en mi codigo  -->
-<!-- Es und directva para crear enlaces de datos bidireccional entre un elemento del formulario
- y una propiedad escrita en el archivo typescript, nos ayuda a que cada cambio que realicemos en el 
- typescript se vea reglejado en el formulario, en resumen introducimos en el formulario las propiedades 
- del objeto equipo creado en el archivo ts, en este caso introducimos el nombre del equipo, el nombre del
- entrenador, el correo electronico, el telefono, la cateogoria y la lista de jugadores(este ultimo es otro array) -->
-
-
- <!-- Explicacion del evento click que le he introducir al formulario  -->
-<!-- Le he introducido dos eventos click al formulario, tal y como dice su nomnre, uno realiza la funcion
- de añadir mas jugadores y otro para eliminar jugador, estos eventos estan escritos en el componente typescript
- relacionado con el formulario, su funcion sera agregar jugadores hasta llegar a su tope(15) y eliminar jugadores
- hasta llegar a su minimo (ahoramismo 1, en un futuro lo cambiare para que este mas realista, pero por vista
- me gusta mas que solo se vea un recuadro)  -->
- <!-- El evento registrar equipo es muy sencillo, en el momento en el que el usuario le da al boton de registrar equipo
-  , este se guarda en un array y muestra al usuario un mensaje de equipo guardado correctamente(EN UN FUTURO LE INTRODUCIRE
-  EXCEPCIONES Y VALIDACIONES DE LOS CAMPOS A RELLENAR DEL USUARIO) -->
-  <!-- La funcion actualizar jugador recibe dos paraemtros, el nombre del jugador y su posicion en el array, esta funcion
-   realiza una actualizacion del nombre en tiempo real desde que el usuario escribe el nombre -->
-<!-- La funcion obtenerIndiceJugador utiliza la directiva ngFor para optimizzar el rendimiento de angular, cuando angular 
- detecta cambios en la lista de jugadores, actauliza todos los elemtnos del array de una forma mas sencilla y rapida -->
-
- <!-- COSA IMPORTANTE
-  Cada vez que se cree un nuevo equipo, se podra ver desde la consola del navegador gracias a la funcion de registrar equipo -->
-
-<div class="container mt-4">
-  <h2 class="text-center">Inscripción de Equipo</h2>
-  <form (ngSubmit)="registrarEquipo()" class="p-4 border rounded shadow">
-    
-    <!-- Nombre del equipo -->
-    <div class="mb-3">
-      <label for="teamName" class="form-label">Nombre del Equipo:</label>
-      <input type="text" id="teamName" [(ngModel)]="equipo.nombre" name="teamName" class="form-control" required>
+<div class="formulario">
+  <form (ngSubmit)="registrarEquipo()">
+    <div>
+      <label for="nombre">Nombre del equipo</label>
+      <input id="nombre" [(ngModel)]="equipo.nombre" name="nombre" required />
     </div>
 
-    <!-- Nombre del entrenador -->
-    <div class="mb-3">
-      <label for="coachName" class="form-label">Nombre del Entrenador:</label>
-      <input type="text" id="coachName" [(ngModel)]="equipo.entrenador" name="coachName" class="form-control" required>
+    <div>
+      <label for="entrenador">Entrenador</label>
+      <input id="entrenador" [(ngModel)]="equipo.entrenador" name="entrenador" required />
     </div>
 
-    <!-- Correo electrónico -->
-    <div class="mb-3">
-      <label for="email" class="form-label">Correo Electrónico:</label>
-      <input type="email" id="email" [(ngModel)]="equipo.email" name="email" class="form-control" required>
+    <div>
+      <label for="email">Correo electrónico</label>
+      <input id="email" [(ngModel)]="equipo.email" name="email" type="email" required />
     </div>
 
-    <!-- Teléfono de contacto -->
-    <div class="mb-3">
-      <label for="phone" class="form-label">Teléfono de Contacto:</label>
-      <input type="tel" id="phone" [(ngModel)]="equipo.telefono" name="phone" class="form-control" required>
+    <div>
+      <label for="telefono">Teléfono</label>
+      <input id="telefono" [(ngModel)]="equipo.telefono" name="telefono" required />
     </div>
 
-    <!-- Categoría por edad -->
-    <div class="mb-3">
-      <label class="form-label">Categoría por Edad:</label>
-      <div *ngFor="let categoria of categorias" class="form-check">
-        <input type="radio" [value]="categoria" name="categoria" [(ngModel)]="equipo.categoria" class="form-check-input">
-        <label class="form-check-label">{{ categoria }}</label>
+    <div>
+      <label for="categoria">Categoría</label>
+      <select id="categoria" [(ngModel)]="equipo.categoria" name="categoria" required>
+        <option *ngFor="let categoria of categorias" [ngValue]="categoria">{{ categoria }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Jugadores</label>
+      <div *ngFor="let jugador of equipo.jugadores; let i = index" class="jugador">
+        <input [(ngModel)]="equipo.jugadores[i]" name="jugador{{i}}" placeholder="Nombre del jugador" required />
+        <button type="button" (click)="eliminarJugador(i)">Eliminar</button>
       </div>
+      <button type="button" (click)="agregarJugador()">Agregar Jugador</button>
     </div>
 
-    <!-- Lista de jugadores -->
-    <div class="mb-3">
-      <label class="form-label">Lista de Jugadores:</label>
-      <div *ngFor="let jugador of equipo.jugadores; let i = index; trackBy: obtenerIndiceJugador" class="d-flex align-items-center mb-2">
-          <input type="text" [(ngModel)]="equipo.jugadores[i]" 
-                 name="player{{ i }}" 
-                 class="form-control me-2" 
-                 placeholder="Nombre del jugador" required>
-          <button type="button" class="btn btn-danger btn-sm" (click)="eliminarJugador(i)">Eliminar jugador</button>
-      </div>
-      <button type="button" class="btn btn-primary btn-sm mt-2" (click)="agregarJugador()" [disabled]="equipo.jugadores.length >= 15">+ Agregar Jugador</button>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
     </div>
 
-    <!-- Botón de envío -->
-    <button type="submit" class="btn btn-success w-100">Registrar Equipo</button>
+    <button type="submit">Registrar equipo</button>
   </form>
 </div>

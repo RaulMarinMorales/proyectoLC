@@ -7,19 +7,24 @@
  una tarjeta nueva en nuestro html -->
 
 
-<div class="torneos-container">
-    <h2>Torneos en Activo</h2>
-    <div class="torneos-grid">
-      <div class="torneo-card" *ngFor="let torneo of torneos">
-        <img [src]="torneo.imagen" alt="Cartel del torneo" class="torneo-img">
-        <div class="torneo-info">
-          <h3>{{ torneo.nombre }}</h3>
-          <p><strong>📅 Fecha:</strong> {{ torneo.fecha }}</p>
-          <p><strong>📍 Lugar:</strong> {{ torneo.lugar }}</p>
-          <p class="torneo-desc">{{ torneo.descripcion }}</p>
-          <button class="ver-mas-btn">Ver más información</button>
-        </div>
+ <div class="torneos-container">
+  <h2>Torneos en Activo</h2>
+  <div class="torneos-grid">
+    <div class="torneo-card" *ngFor="let torneo of torneos">
+      <img [src]="torneo.imagen" alt="Cartel del torneo" class="torneo-img">
+      <div class="torneo-info">
+        <h3>{{ torneo.nombre }}</h3>
+        <p><strong>📅 Fecha:</strong> {{ torneo.fecha }}</p>
+        <p><strong>📍 Lugar:</strong> {{ torneo.lugar }}</p>
+        <p class="torneo-desc">{{ torneo.descripcion }}</p>
+        <!-- Botón para redirigir según el torneo -->
+        <button 
+          class="ver-mas-btn" 
+          [routerLink]="['/' + torneo.ruta]" 
+          [state]="{ torneo: torneo }">
+          Apúntate aquí!
+        </button>
       </div>
     </div>
   </div>
-  
+</div>

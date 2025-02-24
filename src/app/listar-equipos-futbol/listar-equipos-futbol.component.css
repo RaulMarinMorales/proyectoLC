@@ -1,0 +1,76 @@
+/* Contenedor de cada jugador con estilo fijo */
+.jugador-container {
+  position: relative;
+  width: 100%;
+  max-width: 300px; 
+}
+
+/* Estilo para los inputs de jugadores */
+.jugador-input {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+  min-height: 40px;
+  resize: none;
+}
+
+/* Estilo para las celdas editables (cambio de fondo cuando está en edición) */
+.editing {
+  background-color: #f0f8ff;
+  border: 2px solid #5bc0de;
+  cursor: text; 
+}
+
+/* Estilo para los botones (usados en acciones de edición y eliminación) */
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.button-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-container .btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.button-container .btn-danger:hover {
+  background-color: #c82333;
+}
+
+.button-container .btn-warning {
+  background-color: #ffc107;
+  color: black;
+}
+
+.button-container .btn-warning:hover {
+  background-color: #e0a800;
+}
+
+.button-container .btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.button-container .btn-success:hover {
+  background-color: #218838;
+}
+
+/* Estilo para los selectores (para elegir el equipo) */
+select.form-select {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}

@@ -8,10 +8,10 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-
-/* Contenedor del formulario */
-.formulario {
+  }
+  
+  /* Contenedor del formulario */
+  .formulario {
     background: white;
     padding: 30px;
     border-radius: 12px;
@@ -20,18 +20,25 @@ body {
     max-width: 550px;
     margin: auto;
     overflow: hidden;
-}
-
-/* Etiquetas de los campos */
-label {
+  }
+  
+  /* Títulos */
+  h2 {
+    font-size: 2rem;
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  /* Etiquetas de los campos */
+  label {
     font-weight: 600;
     color: #444;
     margin-bottom: 8px;
     display: inline-block;
-}
-
-/* Campos de entrada */
-input, select, button {
+  }
+  
+  /* Campos de entrada */
+  input, select, button {
     width: 100%;
     padding: 12px 15px;
     margin-top: 8px;
@@ -40,10 +47,10 @@ input, select, button {
     font-size: 1rem;
     box-sizing: border-box;
     transition: border-color 0.3s ease;
-}
-
-/* Botones */
-button {
+  }
+  
+  /* Botones */
+  button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -53,43 +60,50 @@ button {
     font-size: 1.1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
-
-button:hover {
+  }
+  
+  button:hover {
     background-color: #0056b3;
-}
-
-/* Estilo de jugadores */
-.jugador {
+  }
+  
+  /* Estilo de jugadores */
+  .jugador {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-}
-
-.jugador input {
+  }
+  
+  .jugador input {
     flex-grow: 1;
-}
-
-.jugador button {
+  }
+  
+  .jugador button {
     background-color: #dc3545;
     margin-left: 10px;
-}
-
-/* Mensajes de error y éxito */
-.error-message, .success-message {
+  }
+  
+  /* Mensajes de error y éxito */
+  .error-message, .success-message {
     text-align: center;
     margin-top: 20px;
     font-size: 1rem;
     padding: 10px;
     border-radius: 8px;
-}
-
-.error-message {
+  }
+  
+  .error-message {
     color: #e74c3c;
     background-color: #f8d7da;
-}
-
-.success-message {
+  }
+  
+  .success-message {
     color: #28a745;
     background-color: #d4edda;
-}
+  }
+  
+  @media (max-width: 768px) {
+    .formulario {
+      padding: 15px;
+    }
+  }
+  

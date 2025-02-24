@@ -1,0 +1,65 @@
+<div class="container my-4">
+  <h2 class="text-center mb-4">Selecciona un equipo</h2>
+
+  <!-- Select para elegir el equipo -->
+  <div class="mb-4">
+    <select [(ngModel)]="equipoSeleccionado" (change)="cargarDetallesEquipo()" class="form-select">
+      <option *ngFor="let equipo of equipos" [value]="equipo.id">{{ equipo.nombre }}</option>
+    </select>
+  </div>
+
+  <!-- Detalles del equipo -->
+  <div *ngIf="equipoDetalles">
+    <h3 class="text-center mb-4">Detalles del equipo</h3>
+    <table class="table table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Entrenador</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Categoría</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input [(ngModel)]="equipoDetalles.nombre" [readonly]="!editando" class="form-control" /></td>
+          <td><input [(ngModel)]="equipoDetalles.entrenador" [readonly]="!editando" class="form-control" /></td>
+          <td><input [(ngModel)]="equipoDetalles.email" [readonly]="!editando" class="form-control" /></td>
+          <td><input [(ngModel)]="equipoDetalles.telefono" [readonly]="!editando" class="form-control" /></td>
+          <td><input [(ngModel)]="equipoDetalles.categoria" [readonly]="!editando" class="form-control" /></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Lista de jugadores -->
+    <h4 class="text-center mb-4">Jugadores</h4>
+    <div *ngFor="let jugador of equipoDetalles.jugadores; let i = index">
+      <div class="mb-3">
+        <label for="jugador-{{i}}" class="form-label">Jugador {{i + 1}}</label>
+        
+        <!-- Input de jugadores con tamaño ajustable -->
+        <div *ngIf="editando" class="jugador-container">
+          <textarea 
+            id="jugador-{{i}}"
+            [(ngModel)]="equipoDetalles.jugadores[i]"
+            class="form-control jugador-input"
+            placeholder="Nombre del jugador"
+            rows="1"
+          ></textarea>
+        </div>
+
+        <!-- Muestra el nombre del jugador cuando no está en modo edición -->
+        <span *ngIf="!editando">{{ jugador }}</span>
+      </div>
+    </div>
+
+    <!-- Botones para eliminar, editar o terminar de editar -->
+    <div class="d-flex justify-content-center gap-3 mt-4">
+      <button class="btn btn-danger" (click)="eliminarEquipo()">Eliminar Equipo</button>
+      <button *ngIf="!editando" class="btn btn-warning" (click)="habilitarEdicion()">Editar Equipo</button>
+      <button *ngIf="editando" class="btn btn-success" (click)="guardarCambios()">Guardar Cambios</button>
+      <button *ngIf="editando" class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar Edición</button>
+    </div>
+  </div>
+</div>
