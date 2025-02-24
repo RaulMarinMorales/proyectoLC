@@ -32,9 +32,9 @@ import { ListarNadadoresComponent } from './listar-nadadores/listar-nadadores.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule // <-- AÑADIR HttpClientModule AQUÍ 
   ],
   providers: [],
   bootstrap: [AppComponent]
