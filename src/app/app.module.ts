@@ -12,10 +12,10 @@ import { CuerpoComponent } from './cuerpo/cuerpo.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';  // <-- IMPORTAR HttpClientModule
 import { FormsModule } from '@angular/forms';
 
-
-// Importamos FormularioRaulComponent para utilizarlo como componente standalone
-import { FormularioRaulComponent } from './formulario-raul/formulario-raul.component';
 import { ListarNadadoresComponent } from './listar-nadadores/listar-nadadores.component';
+import { FormularioFutbolComponent } from './formulario-futbol/formulario-futbol.component';
+import { ListaEquiposComponent } from './listar-equipos-futbol/listar-equipos-futbol.component';
+
 
 @NgModule({
   declarations: [
@@ -24,17 +24,19 @@ import { ListarNadadoresComponent } from './listar-nadadores/listar-nadadores.co
     ComponenteAntonioComponent,
     FooterComponenteComponent,
     FormularioBaloncestoComponent,
+    FormularioNatacionComponent,
     HeaderComponent,
     CuerpoComponent,
-    FormularioRaulComponent,
     FormularioNatacionComponent,
-    ListarNadadoresComponent
+    ListarNadadoresComponent,
+    FormularioFutbolComponent,
+    ListaEquiposComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    FormsModule,  
     HttpClientModule,
-    AppRoutingModule // <-- AÑADIR HttpClientModule AQUÍ 
+    AppRoutingModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

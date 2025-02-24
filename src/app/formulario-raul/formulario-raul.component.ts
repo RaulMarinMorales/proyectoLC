@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { EquipoService } from '../servicio-equipo.service'; 
+=======
+import { EquipoService } from '../servicio-equipo.service';
+>>>>>>> develop-raul
 
 @Component({
   selector: 'app-formulario-raul',
   templateUrl: './formulario-raul.component.html',
   styleUrls: ['./formulario-raul.component.css'],
-  standalone: false
 })
 export class FormularioRaulComponent {
   equipo = {
@@ -17,8 +20,7 @@ export class FormularioRaulComponent {
     jugadores: ['']
   };
 
-  // Categorías por edad
-  categorias = [
+  categorias: string[] = [
     'Prebenjamín', 
     'Benjamín', 
     'Alevín', 
@@ -28,39 +30,45 @@ export class FormularioRaulComponent {
     'Senior'
   ];
 
-  constructor(private equipoService: EquipoService) {}  // Inyectamos el servicio
+  errorMessage: string = '';
+  successMessage: string = '';
+
+  constructor(private equipoService: EquipoService) {}
 
   agregarJugador() {
     if (this.equipo.jugadores.length < 15) {
-      this.equipo.jugadores.push('');
+      this.equipo.jugadores = [...this.equipo.jugadores, '']; // Clonar el array para que Angular detecte el cambio
     }
   }
 
   eliminarJugador(index: number) {
     if (this.equipo.jugadores.length > 1) {
       this.equipo.jugadores.splice(index, 1);
+      this.equipo.jugadores = [...this.equipo.jugadores]; // Asegurar que Angular detecta el cambio
     }
   }
 
-  // Método para registrar el equipo
   registrarEquipo() {
-    this.equipoService.registrarEquipo(this.equipo).subscribe(
-      (response) => {
-        console.log('Equipo Registrado:', response);
-        alert('Equipo registrado con éxito!');
-      },
-      (error) => {
-        console.error('Error al registrar el equipo:', error);
-        alert('Hubo un error al registrar el equipo.');
-      }
-    );
+    if (this.validarFormulario()) {
+      this.equipoService.registrarEquipo(this.equipo).subscribe(
+        (response) => {
+          this.successMessage = 'El equipo ha sido registrado con éxito.';
+          this.errorMessage = '';
+        },
+        (error) => {
+          this.errorMessage = 'Hubo un error al registrar el equipo. Intenta nuevamente.';
+          this.successMessage = '';
+        }
+      );
+    }
   }
 
-  actualizarJugador(value: string, index: number): void {
-    this.equipo.jugadores[index] = value;
-  }
-  
-  obtenerIndiceJugador(index: number, jugador: string): number {
-    return index; 
+  validarFormulario(): boolean {
+    if (!this.equipo.nombre || !this.equipo.entrenador || !this.equipo.email || !this.equipo.telefono || !this.equipo.categoria) {
+      this.errorMessage = 'Por favor, complete todos los campos';
+      this.successMessage = '';
+      return false;
+    }
+    return true;
   }
 }
