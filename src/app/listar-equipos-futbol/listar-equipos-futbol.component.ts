@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EquipoService } from '../servicio-equipo.service';
+import { EquipoService } from '../services/servicio-equiposFutbol.service';
 
 @Component({
   selector: 'app-listar-equipos-futbol',

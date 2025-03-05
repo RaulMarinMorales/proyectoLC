@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NatacionService } from '../natacion.service';
+import { NatacionService } from '../services/natacion.service';
 
 @Component({
   selector: 'app-listar-nadadores',

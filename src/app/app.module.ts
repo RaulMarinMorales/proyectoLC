@@ -16,6 +16,7 @@ import { FormularioFutbolComponent } from './formulario-futbol/formulario-futbol
 import { ListaEquiposComponent } from './listar-equipos-futbol/listar-equipos-futbol.component';
 import { ListarEquiposBaloncestoComponent } from './listar-equipos-baloncesto/listar-equipos-baloncesto.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

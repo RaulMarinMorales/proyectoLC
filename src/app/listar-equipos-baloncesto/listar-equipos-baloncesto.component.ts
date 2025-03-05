@@ -16,14 +16,19 @@ export class ListarEquiposBaloncestoComponent implements OnInit {
 
   ngOnInit() {
     this.equiposBaloncestoService.obtenerEquipos().subscribe((data) => {
-      this.equiposBaloncesto = data;
+      // Asegúrate de deserializar los jugadores si son un string
+      this.equiposBaloncesto = data.map((equipo) => {
+        if (typeof equipo.jugadores === 'string') {
+          try {
+            equipo.jugadores = JSON.parse(equipo.jugadores);  // Deserializar si es un string
+          } catch (e) {
+            console.error('Error al parsear los jugadores:', e);
+            equipo.jugadores = [];  // Si falla el parseo, asigna un array vacío
+          }
+        }
+        return equipo;
+      });
       console.log(this.equiposBaloncesto);  // Verifica que cada equipo tiene un array de jugadores
-    });
-  }
-
-  obtenerEquipos() {
-    this.equiposBaloncestoService.obtenerEquipos().subscribe((data: any[]) => {
-      this.equiposBaloncesto = data;
     });
   }
 

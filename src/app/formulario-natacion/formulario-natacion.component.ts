@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NatacionService } from '../natacion.service'; // Importamos el servicio
+import { NatacionService } from '../services/natacion.service'; // Importamos el servicio
 
 @Component({
   selector: 'app-formulario-natacion',

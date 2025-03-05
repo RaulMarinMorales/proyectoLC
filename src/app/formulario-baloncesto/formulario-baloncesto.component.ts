@@ -22,7 +22,7 @@ export class FormularioBaloncestoComponent {
     localidad: '',
     direccion: '',
     capitan: '',
-    jugadores: ['']
+    jugadores: []
   };
 
   constructor(private servicioBal: ServicioBaloncestoService) {}  
@@ -30,16 +30,9 @@ export class FormularioBaloncestoComponent {
   seleccionarModalidad(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     this.modalidadSeleccionada = selectElement.value;
-
-    if (this.modalidadSeleccionada === '3x3') {
-      this.maxJugadores = 4;
-    } else if (this.modalidadSeleccionada === '5x5') {
-      this.maxJugadores = 9;
-    } else {
-      this.maxJugadores = 0;
-    }
-
-    // Limpiamos los jugadores en lugar de rellenarlos automáticamente
+    this.maxJugadores = this.modalidadSeleccionada === '3x3' ? 4 : this.modalidadSeleccionada === '5x5' ? 9 : 0;
+    
+    // Resetear jugadores
     this.equipo.jugadores = [];
   }
 
@@ -53,14 +46,10 @@ export class FormularioBaloncestoComponent {
 
   inscribirEquipo3x3() {
     const equipo = { ...this.equipo };
-  
-    // Convierte los jugadores a un array de nombres (si es necesario)
-    const jugadoresSoloNombres = equipo.jugadores.map((jugador: { nombre: any; }) => jugador.nombre);
-  
-    this.servicioBal.inscribirEquipo3x3({
-      ...equipo,
-      jugadores: jugadoresSoloNombres  // Enviar solo los nombres de los jugadores
-    }).subscribe(
+    equipo.jugadores = Array.isArray(equipo.jugadores) ? equipo.jugadores.map((j: { nombre: string }) => j.nombre) : [];
+
+    console.log("Enviando equipo 3x3:", equipo); // Debug
+    this.servicioBal.inscribirEquipo3x3(equipo).subscribe(
       response => {
         console.log(response);
         this.equipos3x3.push(equipo);
@@ -73,10 +62,12 @@ export class FormularioBaloncestoComponent {
       }
     );
   }
-  
 
   inscribirEquipo5x5() {
     const equipo = { ...this.equipo };
+    equipo.jugadores = Array.isArray(equipo.jugadores) ? equipo.jugadores.map((j: { nombre: string }) => j.nombre) : [];
+
+    console.log("Enviando equipo 5x5:", equipo); // Debug
     this.servicioBal.inscribirEquipo5x5(equipo).subscribe(
       response => {
         console.log(response);
@@ -100,22 +91,22 @@ export class FormularioBaloncestoComponent {
       jugadores: []
     };
     this.modalidadSeleccionada = 'seleccioneModalidad';
-    this.maxJugadores = 0;
   }
 
-  agregarJugador() {
-    if (this.equipo.jugadores.length < this.maxJugadores) {
-      this.equipo.jugadores.push();  // Mantén el formato de objeto
-    }
+  // Método para trackear los jugadores en el *ngFor
+  trackByIndex(index: number): number {
+    return index;
   }
-  
 
+  // Método para eliminar un jugador
   eliminarJugador(index: number) {
     this.equipo.jugadores.splice(index, 1);
   }
 
-  trackByIndex(index: number, jugador: string): number {
-    return index;
+  // Método para agregar un jugador
+  agregarJugador() {
+    if (this.equipo.jugadores.length < this.maxJugadores) {
+      this.equipo.jugadores.push({ nombre: '' });
+    }
   }
 }
-
